@@ -8,7 +8,7 @@ import seedu.addressbook.data.tag.UniqueTagList;
  * Implementations should guarantee: details are present and not null, field values are validated.
  */
 public interface ReadOnlyPerson {
-
+    int getSequenceNumber();
     Name getName();
     Phone getPhone();
     Email getEmail();
@@ -78,6 +78,7 @@ public interface ReadOnlyPerson {
      */
     default String getAsTextHidePrivate() {
         final StringBuilder builder = new StringBuilder();
+        
         builder.append(getName());
         if (!getPhone().isPrivate()) {
             builder.append(" Phone: ").append(getPhone());
@@ -92,6 +93,8 @@ public interface ReadOnlyPerson {
         for (Tag tag : getTags()) {
             builder.append(tag);
         }
+        builder.append(" Sequence Number: ");
+        builder.append(getSequenceNumber());
         return builder.toString();
     }
 }

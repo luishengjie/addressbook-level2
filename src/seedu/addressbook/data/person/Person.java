@@ -9,7 +9,8 @@ import java.util.Objects;
  * Guarantees: details are present and not null, field values are validated.
  */
 public class Person implements ReadOnlyPerson {
-
+    private static int nextSequenceNumber = 0;
+    private int sequenceNumber;
     private Name name;
     private Phone phone;
     private Email email;
@@ -25,6 +26,8 @@ public class Person implements ReadOnlyPerson {
         this.email = email;
         this.address = address;
         this.tags = new UniqueTagList(tags); // protect internal tags from changes in the arg list
+        sequenceNumber = nextSequenceNumber;
+        nextSequenceNumber ++;
     }
 
     /**
@@ -34,6 +37,10 @@ public class Person implements ReadOnlyPerson {
         this(source.getName(), source.getPhone(), source.getEmail(), source.getAddress(), source.getTags());
     }
 
+    public int getSequenceNumber(){
+        return sequenceNumber;
+    }
+    
     @Override
     public Name getName() {
         return name;
